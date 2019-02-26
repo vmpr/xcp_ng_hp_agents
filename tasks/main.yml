@@ -1,0 +1,19 @@
+---
+# tasks file for xcp-ng_hp_agents
+
+# in this case we need the rpm command, because the ansible yum module needs the package yum-utils installed on the host system,
+# which  doesn't come by default with XCP-ng
+
+- name: Check if hp-agents-xs-config is installed
+  command: rpm -q hp-agents-xs-config
+  ignore_errors: yes
+  args:
+    warn: false
+  register: rpm_check
+
+- name: execute install task if hp-agents-xs-config rpm is not installed, skip if it is already installed
+  include_tasks: install_xsagentpack.yml
+  when: rpm_check.stdout.find('is not installed') != -1
+
+- name: execute install/update task for hp tools from official repo
+  include_tasks: install_hp_tools.yml

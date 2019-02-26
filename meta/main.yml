@@ -1,0 +1,29 @@
+---
+galaxy_info:
+  author: Ringo Gierth
+  description: ansible role to install hp-agents for XCP-ng or XenServer
+  company: IT Consulting Dresden
+
+  license: Apache
+
+  min_ansible_version: 2.7
+
+  github_branch: master
+
+  #
+  # platforms is a list of platforms, and each platform has a name and a list of versions.
+  #
+
+  # choose EL7 as platform,  because there is no platform like XCP-ng or XenServer available
+  platforms:
+    - name: EL
+      versions:
+        - 7
+
+
+  galaxy_tags:
+    - system
+    - xenserver
+    - xcpng
+
+dependencies: []

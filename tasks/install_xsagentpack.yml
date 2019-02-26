@@ -1,0 +1,29 @@
+---
+# tasks file for xcp-ng_hp_agents
+
+- name: Download hp agents tar archive
+  get_url:
+    url: http://{{ hp_agents_download_path }}/hp-agents-{{ hp_agents_version }}.XCP-ng.tgz
+    dest: /tmp/
+    mode: 0440
+  environment:
+    http_proxy: '{{ http_proxy|default("") }}'
+
+- name: extract hp agents tgz archive
+  unarchive:
+    src: /tmp/hp-agents-{{ hp_agents_version }}.XCP-ng.tgz
+    dest: /tmp/
+    remote_src: true
+
+- name: install hp-tools via script
+  shell: /tmp/hp-agents-{{ hp_agents_version }}.XS7/install.sh
+  args:
+    chdir: /tmp/hp-agents-{{ hp_agents_version }}.XS7
+
+- name: clean after installation
+  file:
+    state: absent
+    path: '{{ item.path }}'
+  with_items:
+    - path: '/tmp/hp-agents-{{ hp_agents_version }}.XS7'
+    - path: '/tmp/hp-agents-{{ hp_agents_version }}.XCP-ng.tgz'
