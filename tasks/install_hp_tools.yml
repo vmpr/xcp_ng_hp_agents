@@ -1,4 +1,9 @@
 ---
+
+- name: Identify HP Model Gerneration Version
+  set_fact:
+    hp_gen: "{{ ansible_product_name.split(' ')[2] | lower }}"
+
 - name: Add HP SPP repository
   yum_repository:
     name: HP_Service_Packk_repo
@@ -6,20 +11,12 @@
     # gen8
     # baseurl: http://downloads.linux.hpe.com/repo/spp-gen8/rhel/$releasever/$basearch/current
     # gen7
-    baseurl: http://downloads.linux.hpe.com/repo/spp-g7/rhel/$releasever/$basearch/current
+    # baseurl: http://downloads.linux.hpe.com/repo/spp-g7/rhel/$releasever/$basearch/current
+    baseurl: http://downloads.linux.hpe.com/repo/spp-{{ hp_gen }}/rhel/$releasever/$basearch/current
     gpgcheck: 0
   when: install_repository
 
-
 - name: install or update hp-tools
   yum:
-    name:
-      # list all hp tools you want to use on your server
-      - hpssacli
-      # already installed by xs agent pack
-      # listed to be updated to latest version
-      - hp-snmp-agents
-      - hp-health
-      - hpsmh
-      - hp-smh-templates
+    name: "{{ hp_tools }}"
     state: latest

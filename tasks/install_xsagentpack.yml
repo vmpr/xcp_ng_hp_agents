@@ -1,5 +1,4 @@
 ---
-# tasks file for xcp-ng_hp_agents
 
 - name: Download hp agents tar archive
   get_url:
