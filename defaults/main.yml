@@ -7,8 +7,10 @@ hp_agents_version: '10.50-2'
 hp_agents_download_path: 'store.it-dd.net/xcp-ng/hp-agents/'
 
 # if you need a proxy, you can configure it like this:
-# http_proxy: http://proxy.it-dd.net:3128
-# and no my proxy is not available from the internet
+#proxy_env:
+#  http_proxy: http://proxy.it-dd.net:3128
+#  https_proxy: http://proxy.it-dd.net:3128
+# no - my proxy is not available from the internet for you
 
 # install hp spp repo? mostly true, only if you manage your repos otherwise
 install_repository: true

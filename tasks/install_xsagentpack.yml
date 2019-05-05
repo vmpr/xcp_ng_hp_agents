@@ -5,8 +5,7 @@
     url: http://{{ hp_agents_download_path }}/hp-agents-{{ hp_agents_version }}.XCP-ng.tgz
     dest: /tmp/
     mode: 0440
-  environment:
-    http_proxy: '{{ http_proxy|default("") }}'
+  environment: '{{proxy_env|default("")}}'
 
 - name: extract hp agents tgz archive
   unarchive:

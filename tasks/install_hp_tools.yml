@@ -20,3 +20,4 @@
   yum:
     name: "{{ hp_tools }}"
     state: latest
+  environment: '{{proxy_env|default("")}}'
